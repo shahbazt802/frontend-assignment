@@ -25,7 +25,7 @@ const ProjectTable = ({ projects = [], startingIndex = 0 }) => {
                 ? formatPercentage(project["percentage.funded"])
                 : "N/A"}
             </td>
-            <td>{project["amount.pledged"] ? formatCurrency(project["amount.pledged"]) : "N/A"}</td>
+            <td>{project["amt.pledged"] ? formatCurrency(project["amt.pledged"]) : "N/A"}</td>
           </tr>
         ))}
       </tbody>
