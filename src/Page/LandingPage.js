@@ -10,23 +10,26 @@ const LandingPage = () => {
   const projectsPerPage = 5;
 
   useEffect(() => {
-    fetch(
-      "https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json"
-    )
-      .then((response) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json"
+        );
+
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
-        return response.json();
-      })
-      .then((data) => {
+
+        const data = await response.json();
         setProjects(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         setError("Failed to fetch data");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchData();
   }, []);
 
   const indexOfLastProject = currentPage * projectsPerPage;

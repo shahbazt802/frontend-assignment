@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Pagination = ({ projectsPerPage, totalProjects, paginate, currentPage }) => {
   const totalPages = Math.ceil(totalProjects / projectsPerPage);
 
-  // Determine which pages to show
   let pageNumbers = [];
+
   if (totalPages <= 5) {
     pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
   } else {
-    if (currentPage <= 5) {
-      pageNumbers = [1, 2, 3, 4, 5, "...", totalPages];
+    if (currentPage <= 3) {
+      pageNumbers = [1, 2, 3, 4, 5];
     } else if (currentPage >= totalPages - 2) {
-      pageNumbers = [1, "...", totalPages - 2, totalPages - 1, totalPages];
+      pageNumbers = [
+        1,
+        "...",
+        totalPages - 4,
+        totalPages - 3,
+        totalPages - 2,
+        totalPages - 1,
+        totalPages,
+      ];
     } else {
       pageNumbers = [1, "...", currentPage - 1, currentPage, currentPage + 1, "...", totalPages];
     }
@@ -28,6 +36,12 @@ const Pagination = ({ projectsPerPage, totalProjects, paginate, currentPage }) =
       paginate(currentPage + 1);
     }
   };
+
+  useEffect(() => {
+    if (currentPage !== 3) {
+      paginate(currentPage);
+    }
+  }, [currentPage, paginate]);
 
   return (
     <div className="pagination">
@@ -62,7 +76,9 @@ const Pagination = ({ projectsPerPage, totalProjects, paginate, currentPage }) =
           <div
             className="arrow-card"
             onClick={handleNext}
-            style={{ cursor: currentPage === totalPages ? "not-allowed" : "pointer" }}>
+            style={{
+              cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+            }}>
             Next &raquo;
           </div>
         </li>
