@@ -2,7 +2,7 @@ import React from "react";
 import { formatCurrency } from "./Formatter/formate";
 import { formatPercentage } from "./Formatter/formate";
 
-const ProjectTable = ({ projects }) => {
+const ProjectTable = ({ projects, startingIndex }) => {
   return (
     <table className="project-table">
       <thead>
@@ -15,7 +15,7 @@ const ProjectTable = ({ projects }) => {
       <tbody>
         {projects.map((project, index) => (
           <tr key={project.id}>
-            <td>{index + 1}</td>
+            <td>{startingIndex + index}</td> {/* Adjust serial number */}
             <td>{formatPercentage(project["percentage.funded"])}</td>
             <td>{formatCurrency(project["amt.pledged"])}</td>
           </tr>

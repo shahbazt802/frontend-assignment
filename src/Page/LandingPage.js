@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ProjectTable from "../Component/ProjectTable";
 import Pagination from "../Component/Pagination";
 
@@ -33,6 +32,9 @@ const LandingPage = () => {
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const startingIndex = indexOfFirstProject + 1; // Starting serial number for the current page
 
   return (
     <div className="container">
@@ -42,8 +44,18 @@ const LandingPage = () => {
         <p>{error}</p>
       ) : (
         <>
-          <h1>Showing Data of kickstarter</h1>
-          <ProjectTable projects={currentProjects} />
+          <h1>Showing Data of Kickstarter</h1>
+          <div className="table-container">
+            <ProjectTable projects={currentProjects} startingIndex={startingIndex} />
+          </div>
+          <div className="fixed-footer">
+            <Pagination
+              projectsPerPage={projectsPerPage}
+              totalProjects={projects.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </div>
         </>
       )}
     </div>
