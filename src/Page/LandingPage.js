@@ -32,37 +32,36 @@ const LandingPage = () => {
     fetchData();
   }, []);
 
+  if (loading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (error) {
+    return <div container>{error}</div>;
+  }
+
   const indexOfLastProject = currentPage * projectsPerPage;
   const indexOfFirstProject = indexOfLastProject - projectsPerPage;
   const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const startingIndex = indexOfFirstProject + 1; // Starting serial number for the current page
+  const startingIndex = indexOfFirstProject + 1;
 
   return (
     <div className="container">
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <>
-          <h1>Showing Data of Kickstarter</h1>
-          <div className="table-container">
-            <ProjectTable projects={currentProjects} startingIndex={startingIndex} />
-          </div>
-          <div className="fixed-footer">
-            <Pagination
-              projectsPerPage={projectsPerPage}
-              totalProjects={projects.length}
-              paginate={paginate}
-              currentPage={currentPage}
-            />
-          </div>
-        </>
-      )}
+      <h1>Showing Data of Kickstarter</h1>
+      <div className="table-container">
+        <ProjectTable projects={currentProjects} startingIndex={startingIndex} />
+      </div>
+      <div className="fixed-footer">
+        <Pagination
+          projectsPerPage={projectsPerPage}
+          totalProjects={projects.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      </div>
     </div>
   );
 };
-
 export default LandingPage;

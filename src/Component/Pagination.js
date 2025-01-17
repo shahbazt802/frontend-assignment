@@ -50,6 +50,7 @@ const Pagination = ({ projectsPerPage, totalProjects, paginate, currentPage }) =
           <div
             className="arrow-card"
             onClick={handlePrev}
+            aria-disabled={currentPage === 1}
             style={{ cursor: currentPage === 1 ? "not-allowed" : "pointer" }}>
             &laquo; Previous
           </div>
@@ -76,6 +77,7 @@ const Pagination = ({ projectsPerPage, totalProjects, paginate, currentPage }) =
           <div
             className="arrow-card"
             onClick={handleNext}
+            aria-disabled={currentPage === totalPages}
             style={{
               cursor: currentPage === totalPages ? "not-allowed" : "pointer",
             }}>

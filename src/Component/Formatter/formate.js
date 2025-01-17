@@ -6,5 +6,6 @@ export const formatCurrency = (amount) => {
 };
 
 export const formatPercentage = (percentage) => {
+  if (percentage === undefined || percentage === null) return "0%";
   return `${percentage.toFixed(2)}%`;
 };

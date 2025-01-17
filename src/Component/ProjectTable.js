@@ -1,8 +1,12 @@
+// src/components/ProjectTable.js
 import React from "react";
-import { formatCurrency } from "./Formatter/formate";
-import { formatPercentage } from "./Formatter/formate";
+import { formatCurrency, formatPercentage } from "./Formatter/formate";
 
-const ProjectTable = ({ projects, startingIndex }) => {
+const ProjectTable = ({ projects = [], startingIndex = 0 }) => {
+  if (projects.length === 0) {
+    return <p>No projects available</p>;
+  }
+
   return (
     <table className="project-table">
       <thead>
@@ -15,9 +19,13 @@ const ProjectTable = ({ projects, startingIndex }) => {
       <tbody>
         {projects.map((project, index) => (
           <tr key={project.id}>
-            <td>{startingIndex + index}</td> {/* Adjust serial number */}
-            <td>{formatPercentage(project["percentage.funded"])}</td>
-            <td>{formatCurrency(project["amt.pledged"])}</td>
+            <td>{startingIndex + index}</td>
+            <td>
+              {project["percentage.funded"]
+                ? formatPercentage(project["percentage.funded"])
+                : "N/A"}
+            </td>
+            <td>{project["amount.pledged"] ? formatCurrency(project["amount.pledged"]) : "N/A"}</td>
           </tr>
         ))}
       </tbody>
