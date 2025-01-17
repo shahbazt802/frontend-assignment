@@ -13,7 +13,7 @@ const ProjectTable = ({ projects = [], startingIndex = 0 }) => {
         <tr>
           <th>S.No.</th>
           <th>Percentage Funded</th>
-          <th>Amount Pledged</th>
+          <th>Amount Pledged($)</th>
         </tr>
       </thead>
       <tbody>
